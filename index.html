@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOX's Delivery — المسيلة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --fox-black: #0A0A0A;
+      --fox-light: #F5F5F5;
+      --fox-card: #1A1A1A;
+      --fox-border: #333333;
+      --fox-orange: #FF8C00;
+    }
+    body { font-family: 'Cairo', sans-serif; background-color: var(--fox-black); color: var(--fox-light); }
+    .bg-fox-black { background-color: var(--fox-black); }
+    .bg-fox-card { background-color: var(--fox-card); }
+    .border-fox-border { border-color: var(--fox-border); }
+    .text-fox-orange { color: var(--fox-orange); }
+    .bg-fox-orange { background-color: var(--fox-orange); }
+    
+    /* Toggle Switch Styles */
+    .toggle-track { width: 50px; height: 25px; background: #333; border-radius: 20px; cursor: pointer; position: relative; transition: 0.3s; }
+    .toggle-track.on { background: var(--fox-orange); }
+    .toggle-thumb { width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2.5px; left: 3px; transition: 0.3s; }
+    .toggle-track.on .toggle-thumb { left: 27px; }
+  </style>
+</head>
+<body class="p-10">
+
+  <div class="flex items-center gap-4 mb-10">
+    <p>حالة التوصيل:</p>
+    <div id="status-toggle" class="toggle-track on" onclick="checkAdminStatus()" role="switch">
+       <div class="toggle-thumb"></div>
+    </div>
+    <span id="status-text">نحن نعمل الآن</span>
+  </div>
+
+  <section id="testimonials" class="max-w-4xl mx-auto">
+    <div class="bg-fox-card p-8 rounded-2xl border border-fox-border">
+      <h2 class="text-2xl font-bold mb-6">أضف تقييمك</h2>
+      <form id="reviewForm" class="space-y-4">
+        <input type="text" id="name" placeholder="اسمك الكريم" class="w-full p-3 bg-black border border-fox-border rounded-lg focus:outline-none" required>
+        <select id="rating" class="w-full p-3 bg-black border border-fox-border rounded-lg focus:outline-none">
+          <option value="5">5 نجوم ★★★★★</option>
+          <option value="4">4 نجوم ★★★★</option>
+        </select>
+        <textarea id="comment" placeholder="رأيك في الخدمة..." class="w-full p-3 bg-black border border-fox-border rounded-lg focus:outline-none"></textarea>
+        <button type="submit" class="bg-fox-orange text-white w-full py-3 rounded-lg font-bold hover:opacity-90 transition">إرسال التقييم</button>
+      </form>
+    </div>
+  </section>
+
+<script>
+  const ADMIN_PASSWORD = "123"; 
+  let isOnline = true;
+
+  function checkAdminStatus() {
+    const pass = prompt("أدخل كلمة سر الإدارة لتغيير الحالة:");
+    if (pass === ADMIN_PASSWORD) {
+      toggleStatus();
+    } else {
+      alert("عذراً، كلمة السر غير صحيحة!");
+    }
+  }
+
+  function toggleStatus() {
+    isOnline = !isOnline;
+    const track = document.getElementById('status-toggle');
+    const text = document.getElementById('status-text');
+    
+    if (isOnline) {
+      track.classList.add('on');
+      text.innerText = "نحن نعمل الآن";
+    } else {
+      track.classList.remove('on');
+      text.innerText = "خارج ساعات العمل";
+    }
+  }
+</script>
+
+</body>
+</html>
